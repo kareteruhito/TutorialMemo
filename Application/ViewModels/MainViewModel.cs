@@ -2,7 +2,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using TutorialMemo.Application.Commands;
-using TutorialMemo.Domain.Models;
 using TutorialMemo.Domain.Policies;
 using TutorialMemo.Infrastructure.Storage;
 
@@ -31,7 +30,6 @@ public sealed class MainViewModel : INotifyPropertyChanged
         {
             if (_text == value) return;
             _text = value;
-            Validate();
             OnPropertyChanged();
             Validate();
         }
@@ -69,11 +67,6 @@ public sealed class MainViewModel : INotifyPropertyChanged
         var result = _policy.Validate(Text);
         ErrorMessage = result.IsValid ? string.Empty : result.ErrorMessage!;
 
-        (SaveCommand as RelayCommand)?.RaiseCanExecuteChanged();
-    }
-
-    private void RaiseCommands()
-    {
         (SaveCommand as RelayCommand)?.RaiseCanExecuteChanged();
     }
 
